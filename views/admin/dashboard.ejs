@@ -1,0 +1,85 @@
+<%- include('../layouts/header') -%>
+    <link rel="stylesheet" href="/styles/dashboard-admin.css">
+    <%- include('../layouts/_messages') -%>
+
+        <div class="container mt-3">
+            <div class="d-flex justify-content-between">
+                <a href="/admin/home" class="btn btn-info mt-3">Home page</a>
+                <a href="/admin/logout" class="btn btn-dark mt-3">Logout</a>
+            </div>
+
+
+            <div class="d-flex justify-content-between my-5">
+                <h1 class="mt-3">Dashboard</h1>
+                <a href="/admin/new-user" class="btn btn-primary mt-3 ">Add user</a>
+            </div>
+            <!-- Search Form -->
+            <form action="/admin/dashboard" method="get" class="mt-3">
+                <div class="input-group w-80 mx-auto" style="background-color: #e9ecef; border-radius: 5px;">
+                    <input type="text" class="form-control" placeholder="Search by name, email, or mobile" name="q"
+                        value="<%= searchQuery || '' %>">
+                    <button class="btn btn-outline-secondary" type="submit">Search</button>
+                </div>
+            </form>
+
+            <table class="table mt-3">
+                <thead class="thead-dark">
+                    <tr >
+                        <th scope="col" style="font-size: 20px;" >Name</th>
+                        <th scope="col" style="font-size: 20px;">Email</th>
+                        <th scope="col" style="font-size: 20px;">Mobile</th>
+                        <th scope="col" style="font-size: 20px;">Image</th>
+                        <th scope="col" style="font-size: 20px;">Actions</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <% if(users.length> 0) {
+                        for(let i=0; i < users.length; i++) { %>
+                            <tr ></tr>
+                            <td class="<%= i % 2 === 0 ? 'bg-light bg-gradient' : "bg-white" %>">
+                                <%= users[i].name %>
+                            </td>
+                            <td class="<%= i % 2 === 0 ? 'bg-light bg-gradient' : "bg-white" %>">
+                                <%= users[i].email %>
+                            </td >
+                            <td class="<%= i % 2 === 0 ? 'bg-light bg-gradient' : "bg-white" %>">
+                                <%= users[i].mobile %>
+                            </td>
+                            <td class="<%= i % 2 === 0 ? 'bg-light bg-gradient' : "bg-white" %>"><img src="/images/userImages/<%= users[i].image %>"
+                                    style="max-width: 100px; max-height: 100px;" alt="<%= users[i].image %>"></td>
+                            <td class="<%= i % 2 === 0 ? 'bg-light bg-gradient' : "bg-white" %>">
+                                <a href="/admin/edit-user/<%= users[i]._id %>" class="btn btn-warning">Edit</a>
+                                <a href="/admin/delete-user/<%= users[i]._id %>?confirm=true" class="btn btn-danger"
+                                    onclick="return showConfirmationPrompt('<%= users[i].name %>')">Delete</a>
+                            </td>
+                            </tr>
+                            <% } } else { %>
+                                <tr>
+                                    <td colspan="5">No Users found.</td>
+                                </tr>
+                                <% } %>
+                </tbody>
+            </table>
+        </div>
+
+        <script>
+            function showConfirmationPrompt(username) {
+                const userInput = prompt(`To delete the user, please enter the username "${username}":`);
+                console.log('Entered username:', userInput);
+                console.log('Expected username:', username);
+
+                if (userInput === username) {
+                    // User entered the correct username, proceed with the deletion
+                    return true;
+                } else {
+                    // User entered an incorrect username or clicked "Cancel"
+                    return false;
+                }
+            }
+        </script>
+
+        
+
+
+
+        <%- include('../layouts/footer') -%>

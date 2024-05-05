@@ -1,0 +1,38 @@
+/* Add this to your home.css file or create a new one if it doesn't exist */
+
+.card {
+    border: 2px solid #007BFF;
+    border-radius: 15px;
+    transition: box-shadow 0.3s ease-in-out;
+}
+
+.card:hover {
+    box-shadow: 0 0 15px rgba(0, 123, 255, 0.5);
+}
+
+.card-header {
+    background-color: #007BFF;
+    color: #fff;
+    border-top-left-radius: 15px;
+    border-top-right-radius: 15px;
+}
+
+.card-body {
+    padding: 20px;
+}
+
+.card img {
+    width: 100%;
+    max-width: 150px;
+    height: auto;
+    border-radius: 50%;
+}
+
+.btn-danger:hover {
+    background-color: #DC3545;
+    border-color: #DC3545;
+}
+
+.btn-danger:focus {
+    box-shadow: 0 0 0 0.2rem rgba(220, 53, 69, 0.5);
+}

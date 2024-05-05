@@ -1,0 +1,34 @@
+<%- include('../layouts/header') -%>
+<link rel="stylesheet" href="/styles/home.css">
+
+<section class="container mt-5 my-auto py-auto">
+    <div class="row">
+        <div class="col-md-6 offset-md-3">
+            <div class="card">
+                <div class="card-header text-center">
+                    <h2>Welcome , Admin</h2>
+                </div>
+                <div class="card-body">
+                    <div class="row">
+                        <div class="col-md-4">
+                            <img src="/images/userImages/<%= user.image %>" class="img-fluid rounded-circle" alt="User Image">
+                        </div>
+                        <div class="col-md-8">
+                            <div class="d-flex flex-column align-items-start h-100">
+                                <h4 class="mb-3">Name: <%= user.name %></h4>
+                                <p class="mb-3"><strong>Email:</strong> <%= user.email %></p>
+                                <p><strong>Mobile Number:</strong> <%= user.mobile %></p>
+                                <div style="display: flex; justify-content: space-between; width:80%">
+                                    <a href="/admin/dashboard" class="btn btn-success mt-3">Dashboard</a>
+                                    <a href="/admin/logout" class="btn btn-danger mt-3">Logout</a>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+
+<%- include('../layouts/footer') -%>

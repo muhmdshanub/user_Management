@@ -1,0 +1,75 @@
+<%- include('../layouts/header') -%>
+    <link rel="stylesheet" href="/styles/home.css">
+    <%- include('../layouts/_messages') -%>
+        <div style="display: flex; justify-content: space-between;">
+            <a href="/admin/home" class="btn btn-info mt-3">Home page</a>
+            <a href="/admin/new-user" class="btn btn-info mt-3">Add user</a>
+        </div>
+
+        <!-- Search Form -->
+        <form action="/admin/dashboard" method="get" class="mt-3">
+            <div class="input-group mb-3">
+                <input type="text" class="form-control" placeholder="Search by name, email, or mobile" name="q"
+                    value="<%= searchQuery || '' %>">
+                <button class="btn btn-outline-secondary" type="submit">Search</button>
+            </div>
+        </form>
+
+
+        <h1>Dashboard</h1>
+
+        <table>
+            <tr>
+                <th>Name</th>
+                <th>Email</th>
+                <th>Mobile</th>
+                <th>Image</th>
+                <th>Action</th>
+            </tr>
+
+            <% if(users.length> 0){
+                for(let i=0;i<users.length;i++){ %>
+                    <tr>
+                        <td>
+                            <%= users[i].name %>
+                        </td>
+                        <td>
+                            <%= users[i].email %>
+                        </td>
+                        <td>
+                            <%= users[i].mobile %>
+                        </td>
+                        <td><img src="/images/userImages/<%= users[i].image %>" style="width:100px;height:100px"
+                                alt="<%= users[i].image %>"></td>
+                        <td>
+                            <a href="/admin/edit-user/<%= users[i]._id %>" class="btn btn-warning mt-3">Edit</a>
+                            <a href="/admin/delete-user/<%= users[i]._id %>?confirm=true" class="btn btn-danger mt-3"
+                                onclick="return showConfirmationPrompt('<%= users[i].name %>')">Delete</a>
+                        </td>
+                    </tr>
+
+                    <% } }else{ %>
+                        <tr>
+                            <td>No Users found.</td>
+                        </tr>
+                        <% } %>
+        </table>
+        <script>
+            function showConfirmationPrompt(username) {
+                const userInput = prompt(`To delete the user, please enter the username "${username}":`);
+
+
+                console.log('Entered username:', userInput);
+                console.log('Expected username:', username);
+
+
+                if (userInput === username) {
+                    // User entered the correct username, proceed with the deletion
+                    return true;
+                } else {
+                    // User entered an incorrect username or clicked "Cancel"
+                    return false;
+                }
+            }
+        </script>
+        <%- include('../layouts/footer') -%>
